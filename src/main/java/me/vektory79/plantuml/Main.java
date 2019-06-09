@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
-        XToolkitStub.ThreadWrapper.start();
+        XToolkitStub.XToolkitStub_Thread_Recalc.start();
         Run.main(args);
     }
 }

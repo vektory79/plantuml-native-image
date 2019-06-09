@@ -20,15 +20,20 @@
     </properties>
 
     <dependencies>
-<!--
         <dependency>
             <groupId>com.oracle.graalvm</groupId>
-            <artifactId>svm-library-support</artifactId>
+            <artifactId>jvmci-api</artifactId>
             <version>1.8</version>
             <scope>system</scope>
-            <systemPath>${java.home}/lib/svm/library-support.jar</systemPath>
+            <systemPath>${java.home}/lib/jvmci/jvmci-api.jar</systemPath>
         </dependency>
--->
+<!--        <dependency>-->
+<!--            <groupId>com.oracle.graalvm</groupId>-->
+<!--            <artifactId>svm-library-support</artifactId>-->
+<!--            <version>1.8</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${java.home}/lib/svm/library-support.jar</systemPath>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.oracle.graalvm</groupId>
             <artifactId>svm</artifactId>
@@ -59,13 +64,13 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <imageName>nativej</imageName>
+                    <imageName>plantuml</imageName>
                     <buildArgs>
                         --no-server
                         --no-fallback
-                        --debug-attach
+<!--                        &#45;&#45;debug-attach-->
                         -H:+ReportExceptionStackTraces
-<!--                        &#45;&#45;initialize-at-build-time=sun.reflect.misc.Trampoline-->
+                        --initialize-at-build-time=me.vektory79.plantuml.stubs.XToolkitStub$XToolkitStub_Thread_Recalc
                     </buildArgs>
                 </configuration>
             </plugin>
@@ -80,6 +85,30 @@
                         </manifest>
                     </archive>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>net.sourceforge.plantuml</groupId>
+                                    <artifactId>plantuml</artifactId>
+                                    <version>${plantuml.version}</version>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
