@@ -1,0 +1,9 @@
+[
+{
+  "name":"com.sun.imageio.plugins.png.PNGMetadata"
+},
+{
+  "name":"sun.misc.Unsafe",
+  "fields":[{"name":"theUnsafe"}]
+}
+]

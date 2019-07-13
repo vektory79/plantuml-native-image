@@ -68,9 +68,14 @@
                     <buildArgs>
                         --no-server
                         --no-fallback
+<!--                        &#45;&#45;force-fallback-->
 <!--                        &#45;&#45;debug-attach-->
                         -H:+ReportExceptionStackTraces
-                        --initialize-at-build-time=me.vektory79.plantuml.stubs.XToolkitStub$XToolkitStub_Thread_Recalc
+<!--                        &#45;&#45;initialize-at-build-time=me.vektory79.plantuml.stubs.XToolkitStub$XToolkitStub_Thread_Recalc-->
+                        -Djava.awt.headless=true
+                        --language:js
+                        --initialize-at-build-time=com.oracle.svm.thirdparty.ICU4JFeature,com.oracle.svm.thirdparty.ICU4JFeature$Helper,com.oracle.svm.thirdparty.ICU4JFeature$Helper$1
+                        --initialize-at-run-time=sun.awt.X11.XDragAndDropProtocols,sun.awt.X11.MotifDnDConstants,sun.awt.X11.WindowPropertyGetter,sun.awt.X11.XWM,sun.awt.X11.XWindow,sun.awt.X11.XWM,sun.awt.dnd.SunDropTargetContextPeer$EventDispatcher,sun.awt.X11.XRootWindow$LazyHolder,sun.awt.X11.XSelection,sun.awt.X11.XDnDConstants,sun.awt.X11.XDataTransferer
                     </buildArgs>
                 </configuration>
             </plugin>
@@ -106,6 +111,31 @@
                                 </artifactItem>
                             </artifactItems>
                             <outputDirectory>${project.build.directory}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-jre-libs</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/libs</outputDirectory>
+                            <overwrite>true</overwrite>
+                            <resources>
+                                <resource>
+                                    <directory>${java.home}/lib/amd64/</directory>
+                                    <includes>
+                                        <include>libawt_xawt.so</include>
+                                        <include>libawt.so</include>
+                                    </includes>
+                                </resource>
+                            </resources>
                         </configuration>
                     </execution>
                 </executions>
