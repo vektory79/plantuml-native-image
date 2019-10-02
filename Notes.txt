@@ -1,0 +1,14 @@
+To print the trace message from JVM native code:
+fprintf( stderr, "HELP!\n" );
+
+To print long in hex format:
+fprintf( stderr, "    env=0x%lx\n", (unsigned long)env );
+
+JNI impl:
+./hotspot/src/share/vm/prims/jni.cpp
+
+~/.sdkman/candidates/java/19.2.0.1-grl/jre/lib/svm/builder/svm.jar
+~/.m2/repository/com/oracle/substratevm/svm/19.2.0.1/svm-19.2.0.1.jar
+remove:
+    com/oracle/svm/core/jdk/Target_java_awt_Toolkit.class
+

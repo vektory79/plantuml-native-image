@@ -14,32 +14,41 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
 
-        <jdk.version>1.8</jdk.version>
-        <graal.version>19.0.0</graal.version>
+        <graal.version>19.2.0.1</graal.version>
         <plantuml.version>1.2019.6</plantuml.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.oracle.graalvm</groupId>
-            <artifactId>jvmci-api</artifactId>
-            <version>1.8</version>
-            <scope>system</scope>
-            <systemPath>${java.home}/lib/jvmci/jvmci-api.jar</systemPath>
-        </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.oracle.graalvm</groupId>-->
-<!--            <artifactId>svm-library-support</artifactId>-->
-<!--            <version>1.8</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${java.home}/lib/svm/library-support.jar</systemPath>-->
-<!--        </dependency>-->
-        <dependency>
-            <groupId>com.oracle.graalvm</groupId>
+            <groupId>com.oracle.substratevm</groupId>
             <artifactId>svm</artifactId>
-            <version>1.8</version>
-            <scope>system</scope>
-            <systemPath>${java.home}/lib/svm/builder/svm.jar</systemPath>
+            <version>${graal.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>truffle-nfi</artifactId>
+                    <groupId>org.graalvm.truffle</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>svm-hosted-native-linux-amd64</artifactId>
+                    <groupId>com.oracle.substratevm</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>svm-hosted-native-darwin-amd64</artifactId>
+                    <groupId>com.oracle.substratevm</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>svm-hosted-native-windows-amd64</artifactId>
+                    <groupId>com.oracle.substratevm</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>compiler</artifactId>
+                    <groupId>org.graalvm.compiler</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>objectfile</artifactId>
+                    <groupId>com.oracle.substratevm</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.plantuml</groupId>
@@ -66,16 +75,13 @@
                 <configuration>
                     <imageName>plantuml</imageName>
                     <buildArgs>
+                        <!--                        &#45;&#45;debug-attach-->
                         --no-server
                         --no-fallback
-<!--                        &#45;&#45;force-fallback-->
-<!--                        &#45;&#45;debug-attach-->
                         -H:+ReportExceptionStackTraces
-<!--                        &#45;&#45;initialize-at-build-time=me.vektory79.plantuml.stubs.XToolkitStub$XToolkitStub_Thread_Recalc-->
                         -Djava.awt.headless=true
                         --language:js
-                        --initialize-at-build-time=com.oracle.svm.thirdparty.ICU4JFeature,com.oracle.svm.thirdparty.ICU4JFeature$Helper,com.oracle.svm.thirdparty.ICU4JFeature$Helper$1
-                        --initialize-at-run-time=sun.awt.X11.XDragAndDropProtocols,sun.awt.X11.MotifDnDConstants,sun.awt.X11.WindowPropertyGetter,sun.awt.X11.XWM,sun.awt.X11.XWindow,sun.awt.X11.XWM,sun.awt.dnd.SunDropTargetContextPeer$EventDispatcher,sun.awt.X11.XRootWindow$LazyHolder,sun.awt.X11.XSelection,sun.awt.X11.XDnDConstants,sun.awt.X11.XDataTransferer
+                        <!--                        -H:+TraceClassInitialization-->
                     </buildArgs>
                 </configuration>
             </plugin>
@@ -125,7 +131,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/libs</outputDirectory>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
                             <overwrite>true</overwrite>
                             <resources>
                                 <resource>
@@ -133,10 +139,38 @@
                                     <includes>
                                         <include>libawt_xawt.so</include>
                                         <include>libawt.so</include>
+                                        <include>libjava.so</include>
+                                        <include>libverify.so</include>
+                                        <include>libawt_headless.so</include>
+                                        <include>libfontmanager.so</include>
+                                    </includes>
+                                </resource>
+                                <resource>
+                                    <directory>${java.home}/lib/amd64/server/</directory>
+                                    <includes>
+                                        <include>libjvm.so</include>
                                     </includes>
                                 </resource>
                             </resources>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

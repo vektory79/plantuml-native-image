@@ -3,6 +3,9 @@
   "name":"com.sun.imageio.plugins.png.PNGMetadata"
 },
 {
+  "name":"java.awt.Image"
+},
+{
   "name":"sun.misc.Unsafe",
   "fields":[{"name":"theUnsafe"}]
 }
