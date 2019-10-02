@@ -39,5 +39,5 @@ To test the builded application it can be running like that:
 ./target/plantuml -Djava.awt.headless=true ./examples/example1.txt
 ```
 
-In present time, application is worked in headless mode only. Desktop windows not worked due unexpected error in 
+In present time, application is worked in headless mode only. Desktop windows not worked due unexpected [error](https://github.com/oracle/graal/issues/1716) in 
 the final executable.
