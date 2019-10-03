@@ -4,3 +4,15 @@
 target/
 .idea
 *.iml
+examples/*.png
+examples/*.svg
+examples/*.atxt
+examples/*.eps
+examples/*.html
+examples/*.latex
+examples/*.scxml
+examples/*.utxt
+examples/*.vdx
+examples/*.gz
+examples/*.xmi
+examples/*.pdf

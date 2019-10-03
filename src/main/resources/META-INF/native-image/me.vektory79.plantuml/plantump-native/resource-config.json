@@ -1,3 +1,14 @@
 {
-  "resources":[{"pattern":"META-INF/services/sun.java2d.pipe.RenderingEngine"}]
+  "bundles": [
+    {"name": "com.sun.org.apache.xml.internal.serializer.utils.SerializerMessages"}
+  ],
+  "resources": [
+    {"pattern": "META-INF/services/sun.java2d.pipe.RenderingEngine"},
+    {"pattern": ".*png$"},
+    {"pattern": ".*txt$"},
+    {"pattern": ".*svg$"},
+    {"pattern": ".*js"},
+    {"pattern": ".*repx$"},
+    {"pattern": ".*properties$"}
+  ]
 }

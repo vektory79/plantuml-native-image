@@ -17,7 +17,7 @@ import java.nio.file.Paths;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException {
-        System.out.println("DISPLAY=" + System.getenv("DISPLAY"));
+//        System.out.println("DISPLAY=" + System.getenv("DISPLAY"));
 //        System.setProperty("java.awt.headless", "true");
 
 //        loadLibs("/media/data/java/OpenJDK/GraalVM/openjdk8-jvmci-builder/graal-jvmci-8/openjdk1.8.0_212/linux-amd64/product");
