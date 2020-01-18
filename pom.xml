@@ -14,13 +14,13 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
 
-        <graal.version>19.2.0.1</graal.version>
-        <plantuml.version>1.2019.6</plantuml.version>
+        <graal.version>19.3.1</graal.version>
+        <plantuml.version>1.2020.0</plantuml.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.oracle.substratevm</groupId>
+            <groupId>org.graalvm.nativeimage</groupId>
             <artifactId>svm</artifactId>
             <version>${graal.version}</version>
             <exclusions>
@@ -30,15 +30,15 @@
                 </exclusion>
                 <exclusion>
                     <artifactId>svm-hosted-native-linux-amd64</artifactId>
-                    <groupId>com.oracle.substratevm</groupId>
+                    <groupId>org.graalvm.nativeimage</groupId>
                 </exclusion>
                 <exclusion>
                     <artifactId>svm-hosted-native-darwin-amd64</artifactId>
-                    <groupId>com.oracle.substratevm</groupId>
+                    <groupId>org.graalvm.nativeimage</groupId>
                 </exclusion>
                 <exclusion>
                     <artifactId>svm-hosted-native-windows-amd64</artifactId>
-                    <groupId>com.oracle.substratevm</groupId>
+                    <groupId>org.graalvm.nativeimage</groupId>
                 </exclusion>
                 <exclusion>
                     <artifactId>compiler</artifactId>
@@ -46,7 +46,7 @@
                 </exclusion>
                 <exclusion>
                     <artifactId>objectfile</artifactId>
-                    <groupId>com.oracle.substratevm</groupId>
+                    <groupId>org.graalvm.nativeimage</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -61,7 +61,7 @@
         <defaultGoal>clean package</defaultGoal>
         <plugins>
             <plugin>
-                <groupId>com.oracle.substratevm</groupId>
+                <groupId>org.graalvm.nativeimage</groupId>
                 <artifactId>native-image-maven-plugin</artifactId>
                 <version>${graal.version}</version>
                 <executions>
