@@ -19,8 +19,8 @@
 
     <licenses>
         <license>
-            <name>GNU General Public License, Version 3.0</name>
-            <url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
+            <name>GNU General Public License (GPL) version 2.0 with "CLASSPATH" exception</name>
+            <url>https://openjdk.java.net/legal/gplv2+ce.html</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -70,6 +70,8 @@
             <groupId>net.sourceforge.plantuml</groupId>
             <artifactId>plantuml</artifactId>
             <version>${plantuml.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.build.directory}/plantuml.jar</systemPath>
         </dependency>
     </dependencies>
 
@@ -99,6 +101,7 @@
                         --language:js
                         <!--                        -H:+TraceClassInitialization-->
 <!--                        -H:Log=registerResource-->
+                        -cp ${project.build.directory}/plantuml.jar
                     </buildArgs>
                 </configuration>
             </plugin>
@@ -139,6 +142,7 @@
                     </execution>
                 </executions>
             </plugin>
+<!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -163,6 +167,7 @@
                     </execution>
                 </executions>
             </plugin>
+-->
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
@@ -222,7 +227,10 @@
                 <version>2.0.0</version>
                 <configuration>
                     <verbose>false</verbose>
-                    <licenseName>gpl_v3</licenseName>
+                    <canUpdateCopyright>true</canUpdateCopyright>
+                    <canUpdateDescription>true</canUpdateDescription>
+                    <licenseResolver>${project.baseUri}/src/main/license</licenseResolver>
+                    <licenseName>gpl_v2_cpe</licenseName>
                     <excludes>
                         <exclude>*.png</exclude>
                         <exclude>*.txt</exclude>
@@ -241,6 +249,26 @@
                                 <root>src/main/java</root>
                                 <root>src/test</root>
                             </roots>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.googlecode.maven-download-plugin</groupId>
+                <artifactId>download-maven-plugin</artifactId>
+                <version>1.3.0</version>
+                <executions>
+                    <execution>
+                        <id>install-plantuml-gplv2</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>https://liquidtelecom.dl.sourceforge.net/project/plantuml/1.2020.0/plantuml-jar-gplv2-${plantuml.version}.zip</url>
+                            <unpack>true</unpack>
+                            <outputFileName>plantuml-jar-gplv2-${plantuml.version}.zip</outputFileName>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
