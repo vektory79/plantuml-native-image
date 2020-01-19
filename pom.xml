@@ -8,6 +8,22 @@
     <artifactId>plantuml-graal</artifactId>
     <version>1.2020.0</version>
 
+    <url>https://github.com/vektory79/plantuml-native-image</url>
+
+    <organization>
+        <name>vektory79.me</name>
+        <url>https://github.com/vektory79</url>
+    </organization>
+
+    <inceptionYear>2019</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>GNU General Public License (GPL) version 2.0</name>
+            <url>https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -54,6 +70,8 @@
             <groupId>net.sourceforge.plantuml</groupId>
             <artifactId>plantuml</artifactId>
             <version>${plantuml.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.build.directory}/plantuml.jar</systemPath>
         </dependency>
     </dependencies>
 
@@ -83,6 +101,7 @@
                         --language:js
                         <!--                        -H:+TraceClassInitialization-->
 <!--                        -H:Log=registerResource-->
+                        -cp ${project.build.directory}/plantuml.jar
                     </buildArgs>
                 </configuration>
             </plugin>
@@ -123,6 +142,7 @@
                     </execution>
                 </executions>
             </plugin>
+<!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -147,6 +167,7 @@
                     </execution>
                 </executions>
             </plugin>
+-->
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
@@ -197,6 +218,57 @@
                         <goals>
                             <goal>single</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>2.0.0</version>
+                <configuration>
+                    <verbose>false</verbose>
+                    <canUpdateCopyright>true</canUpdateCopyright>
+                    <canUpdateDescription>true</canUpdateDescription>
+                    <licenseName>gpl_v2</licenseName>
+                    <excludes>
+                        <exclude>*.png</exclude>
+                        <exclude>*.txt</exclude>
+                        <exclude>*.json</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>first</id>
+                        <goals>
+                            <goal>update-file-header</goal>
+                        </goals>
+                        <phase>process-sources</phase>
+                        <configuration>
+                            <roots>
+                                <root>src/main/java</root>
+                                <root>src/test</root>
+                            </roots>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.googlecode.maven-download-plugin</groupId>
+                <artifactId>download-maven-plugin</artifactId>
+                <version>1.3.0</version>
+                <executions>
+                    <execution>
+                        <id>install-plantuml-gplv2</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>https://liquidtelecom.dl.sourceforge.net/project/plantuml/1.2020.0/plantuml-jar-gplv2-${plantuml.version}.zip</url>
+                            <unpack>true</unpack>
+                            <outputFileName>plantuml-jar-gplv2-${plantuml.version}.zip</outputFileName>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
