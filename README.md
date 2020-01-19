@@ -3,7 +3,7 @@
 ## Requirements
 
 1. Installed dependency libs (for Ubuntu it is: libfreetype6 libpng16-16 libfontconfig1 libjpeg8 fonts-dejavu-extra)
-2. GraalVM 19.2.0.1 (other versions can be compatible but not tested)
+2. GraalVM 19.3.1 (other versions can be compatible but not tested)
 3. native-image compilator sould be installed (`gu install native-image`)
 4. 10Gb free ram for the compilation purpose
 5. Apache Maven for building the native image
@@ -17,8 +17,8 @@ must be applied.
 Access to AWT API is blocked by the special class `com.oracle.svm.core.jdk.Target_java_awt_Toolkit.class`,
 that lay in `svm.jar`. This JAR file can be found in two places:
 
-* In the local Maven cache, after first compilation of the project: `~/.m2/repository/com/oracle/substratevm/svm/19.2.0.1/svm-19.2.0.1.jar`
-* In the GraalVM home directory. In SDKMAN installation it is in: `~/.sdkman/candidates/java/19.2.0.1-grl/jre/lib/svm/builder/svm.jar`
+* In the local Maven cache, after first compilation of the project: `~/.m2/repository/org/graalvm/nativeimage/svm/19.3.1/svm-19.3.1.jar`
+* In the GraalVM home directory. In SDKMAN installation it is in: `~/.sdkman/candidates/java/19.3.1.r8-grl/jre/lib/svm/builder/svm.jar`
 
 Unfortunally, both of this JAR should be hacked by removing `com/oracle/svm/core/jdk/Target_java_awt_Toolkit.class` file.
 Otherwise the program execution will ends with the message: `AWT is currently not supported on Substrate VM`
