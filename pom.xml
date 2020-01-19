@@ -6,7 +6,7 @@
 
     <groupId>me.vektory79.plantuml</groupId>
     <artifactId>plantuml-graal</artifactId>
-    <version>1.2020.0</version>
+    <version>1.2020.0-1</version>
 
     <url>https://github.com/vektory79/plantuml-native-image</url>
 
@@ -70,8 +70,7 @@
             <groupId>net.sourceforge.plantuml</groupId>
             <artifactId>plantuml</artifactId>
             <version>${plantuml.version}</version>
-            <scope>system</scope>
-            <systemPath>${project.build.directory}/plantuml.jar</systemPath>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
