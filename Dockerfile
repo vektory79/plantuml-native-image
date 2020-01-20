@@ -1,9 +1,13 @@
 FROM oracle/graalvm-ce:19.3.1-java8 AS BUILD
-ADD http://www.nic.funet.fi/pub/mirrors/apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz /usr/local/maven
+RUN curl -o - -s http://www.nic.funet.fi/pub/mirrors/apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz | tar xz -C /usr/local
 RUN gu install native-image
-COPY pom.xml examples /build/
-RUN /usr/local/maven/bin/mvn
+COPY . /build
+WORKDIR /build
+RUN /usr/local/apache-maven-3.6.3/bin/mvn
 
-FROM alpine:3
-COPY --from=BUILD /build/target/lib /build/target/plantuml /app/
+FROM ubuntu:20.04
+RUN apt-get -qq update && apt-get -y -qq install libxi6 libxtst6 libxrender1
+WORKDIR /app
+COPY --from=BUILD /build/target/plantuml /app/plantuml
+COPY --from=BUILD /build/target/lib /app/lib
 ENTRYPOINT [ "/app/plantuml", "-headless" ]
