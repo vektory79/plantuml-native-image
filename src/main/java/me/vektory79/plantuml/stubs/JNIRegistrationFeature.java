@@ -56,6 +56,7 @@ import javax.swing.*;
 import javax.swing.border.AbstractBorder;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.plaf.basic.BasicGraphicsUtils;
+import javax.swing.plaf.basic.BasicTextUI;
 import javax.swing.plaf.metal.MetalTheme;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
@@ -102,8 +103,12 @@ class JNIRegistrationFeature implements Feature {
             registerReflection("sun.font.FreetypeFontScaler");
             registerReflection("net.sourceforge.plantuml.brotli.DictionaryData");
             registerReflection("com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl");
-//            registerReflection("org.apache.batik.apps.rasterizer.SVGConverter");
-//            registerReflection("org.apache.batik.apps.rasterizer.DestinationType");
+            registerReflection("org.stathissideris.ascii2image.core.ConversionOptions");
+            registerReflection("org.stathissideris.ascii2image.core.ProcessingOptions");
+            registerReflection("org.stathissideris.ascii2image.core.RenderingOptions");
+            registerReflection("org.stathissideris.ascii2image.text.TextGrid");
+            registerReflection("org.stathissideris.ascii2image.graphics.Diagram");
+            registerReflection("org.stathissideris.ascii2image.graphics.BitmapRenderer");
 
             classInitializationSupport.initializeAtRunTime("sun.awt.X11.XDragAndDropProtocols", AWT_SUPPORT);
             classInitializationSupport.initializeAtRunTime("sun.awt.X11.MotifDnDConstants", AWT_SUPPORT);
@@ -198,7 +203,12 @@ class JNIRegistrationFeature implements Feature {
             initAtRuntimeSimple(a, "sun.awt.X11.XWindowPeer");
             initAtRuntimeSimple(a, "sun.awt.X11.XWM");
             initAtRuntimeSimple(a, "sun.awt.X11.XWrapperBase");
-
+            initAtRuntimeSimple(a, Cursor.class);
+            initAtRuntimeSimple(a, BasicTextUI.class);
+            initAtRuntimeSimple(a, DataFlavor.class);
+            initAtRuntimeSimple(a, "javax.swing.plaf.basic.BasicTransferable");
+            initAtRuntimeSimple(a, "sun.awt.X11.XRobotPeer");
+            initAtRuntimeSimple(a, "sun.awt.image.ImagingLib");
 
             JNIRuntimeAccess.register(System.class);
             JNIRuntimeAccess.register(System.class.getDeclaredMethod("setProperty", String.class, String.class));
@@ -349,7 +359,6 @@ class JNIRegistrationFeature implements Feature {
             JNIRuntimeAccess.register(JPEGImageDecoder.class.getDeclaredMethod("sendHeaderInfo", int.class, int.class, boolean.class, boolean.class, boolean.class));
             JNIRuntimeAccess.register(JPEGImageDecoder.class.getDeclaredMethod("sendPixels", byte[].class, int.class));
             JNIRuntimeAccess.register(JPEGImageDecoder.class.getDeclaredMethod("sendPixels", int[].class, int.class));
-
 
             // Register primitive types: jdk/src/share/native/sun/java2d/loops/GraphicsPrimitiveMgr.c:581
             JNIRuntimeAccess.register(initAtRuntime(a, "sun.java2d.loops.Blit").getDeclaredConstructor(long.class, SurfaceType.class, CompositeType.class, SurfaceType.class));
@@ -925,6 +934,8 @@ class JNIRegistrationFeature implements Feature {
         reflectionClasses.add(clazz);
         reflectionSupport.register(clazz);
         reflectionSupport.register(clazz.getDeclaredConstructors());
+        reflectionSupport.register(clazz.getMethods());
+        reflectionSupport.register(true, false, clazz.getFields());
     }
 
     private void registerChildClasses(FeatureImpl.BeforeAnalysisAccessImpl access) throws ClassNotFoundException {
@@ -1335,6 +1346,50 @@ class JNIRegistrationFeature implements Feature {
         initAtRuntime(access, "javax.swing.tree.DefaultTreeCellRenderer");
         initAtRuntime(access, "com.sun.java.swing.plaf.motif.MotifTreeCellRenderer");
 
+        initAtRuntime(access, "sun.awt.LightweightFrame");
+        initAtRuntime(access, "java.awt.TextComponent");
+        initAtRuntime(access, "java.awt.TextField");
+        initAtRuntime(access, "java.awt.Checkbox");
+        initAtRuntime(access, "java.awt.ScrollPane");
+        initAtRuntime(access, "java.awt.TextArea");
+        initAtRuntime(access, "java.awt.FileDialog");
+        initAtRuntime(access, "sun.awt.X11.XEmbeddedFrame");
+        initAtRuntime(access, "sun.awt.X11.XTrayIconPeer$IconCanvas");
+        initAtRuntime(access, "sun.awt.X11.GtkFileDialogPeer");
+        initAtRuntime(access, "sun.awt.X11.XFileDialogPeer");
+        initAtRuntime(access, "sun.awt.X11.XScrollPanePeer");
+        initAtRuntime(access, "sun.awt.X11.XTextAreaPeer");
+        initAtRuntime(access, "sun.awt.X11.XCheckboxPeer");
+        initAtRuntime(access, "sun.awt.X11.XTextFieldPeer");
+        initAtRuntimeSimple(access, "sun.awt.X11.XEmbedClientHelper");
+        initAtRuntime(access, "sun.awt.SunToolkit$2");
+        initAtRuntime(access, "sun.awt.SunToolkit$3");
+        initAtRuntime(access, "sun.awt.X11.XTextFieldPeer$XAWTTextField");
+        initAtRuntime(access, "sun.awt.X11.XScrollPanePeer$XScrollPaneContentWindow");
+        initAtRuntime(access, "sun.awt.X11.XTextAreaPeer$AWTTextArea");
+        initAtRuntime(access, "sun.awt.X11.XTextAreaPeer$AWTTextPane");
+        initAtRuntime(access, "sun.awt.X11.XTrayIconPeer$TrayIconCanvas");
+        initAtRuntime(access, "sun.awt.X11.XTrayIconPeer$XTrayIconEmbeddedFrame");
+        initAtRuntime(access, "java.awt.event.TextEvent");
+        initAtRuntimeSimple(access, "java.awt.geom.Arc2D$Float");
+        initAtRuntime(access, "sun.awt.X11.XFileDialogPeer$2");
+        initAtRuntime(access, "sun.awt.X11.Separator");
+        initAtRuntimeSimple(access, "sun.awt.X11.XTextAreaPeer$BevelBorder");
+        initAtRuntime(access, "sun.awt.X11.XTextAreaPeer$AWTTextPane$XAWTScrollBar");
+        initAtRuntimeSimple(access, "javax.swing.plaf.basic.BasicTextFieldUI");
+        initAtRuntimeSimple(access, "javax.swing.plaf.basic.BasicPasswordFieldUI");
+        initAtRuntimeSimple(access, "com.sun.java.swing.plaf.motif.MotifPasswordFieldUI");
+        initAtRuntimeSimple(access, "sun.awt.X11.XTextFieldPeer$AWTTextFieldUI");
+        initAtRuntimeSimple(access, "javax.swing.plaf.basic.BasicTextAreaUI");
+        initAtRuntimeSimple(access, "com.sun.java.swing.plaf.motif.MotifTextAreaUI");
+        initAtRuntimeSimple(access, "sun.awt.X11.XTextAreaPeer$AWTTextAreaUI");
+        initAtRuntime(access, "sun.awt.X11.XTextAreaPeer$XAWTCaret");
+        initAtRuntime(access, "javax.swing.plaf.basic.BasicArrowButton");
+        initAtRuntime(access, "sun.awt.X11.XTextAreaPeer$XAWTScrollBarButton");
+        initAtRuntime(access, "javax.swing.plaf.basic.BasicTextUI$BasicCaret");
+        initAtRuntime(access, "javax.swing.plaf.basic.BasicTextUI$BasicCursor");
+        initAtRuntimeSimple(access, "javax.swing.plaf.basic.BasicTextUI$TextTransferHandler$TextTransferable");
+
         registerReflection("sun.java2d.loops.DrawLine");
         registerReflection("sun.java2d.loops.FillRect");
         registerReflection("sun.java2d.loops.DrawRect");
@@ -1415,5 +1470,6 @@ class JNIRegistrationFeature implements Feature {
         registerReflection("sun.java2d.loops.FillSpans$TraceFillSpans");
         registerReflection("sun.java2d.loops.Blit$GeneralXorBlit");
         registerReflection("sun.java2d.opengl.OGLMaskBlit");
+        registerReflection("org.stathissideris.ascii2image.text.GridPattern");
     }
 }

@@ -88,6 +88,7 @@ public class Main {
         NativeLibrarySupport.singleton().loadLibrary(libDirPath + "/libverify.so", true);
         NativeLibrarySupport.singleton().loadLibrary(libDirPath + "/libjava.so", true);
         NativeLibrarySupport.singleton().loadLibrary(libDirPath + "/libawt.so", true);
+        NativeLibrarySupport.singleton().loadLibrary(libDirPath + "/libmlib_image.so", true);
         if (Boolean.getBoolean("java.awt.headless")) {
             NativeLibrarySupport.singleton().loadLibrary(libDirPath + "/libawt_headless.so", true);
         } else {

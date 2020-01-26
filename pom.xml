@@ -6,7 +6,7 @@
 
     <groupId>me.vektory79.plantuml</groupId>
     <artifactId>plantuml-graal</artifactId>
-    <version>1.2020.0-1</version>
+    <version>1.2020.0-2</version>
 
     <url>https://github.com/vektory79/plantuml-native-image</url>
 
@@ -189,6 +189,7 @@
                                         <include>libverify.so</include>
                                         <include>libawt_headless.so</include>
                                         <include>libfontmanager.so</include>
+                                        <include>libmlib_image.so</include>
                                     </includes>
                                 </resource>
                                 <resource>
