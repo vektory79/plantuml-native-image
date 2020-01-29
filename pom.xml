@@ -96,9 +96,9 @@
                         --no-server
                         --no-fallback
                         -H:+ReportExceptionStackTraces
-                        -Djava.awt.headless=true
+<!--                        -Djava.awt.headless=true-->
                         --language:js
-                        <!--                        -H:+TraceClassInitialization-->
+<!--                        -H:+TraceClassInitialization-->
 <!--                        -H:Log=registerResource-->
                         -cp ${project.build.directory}/plantuml.jar
                     </buildArgs>

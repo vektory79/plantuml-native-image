@@ -209,6 +209,9 @@ class JNIRegistrationFeature implements Feature {
             initAtRuntimeSimple(a, "javax.swing.plaf.basic.BasicTransferable");
             initAtRuntimeSimple(a, "sun.awt.X11.XRobotPeer");
             initAtRuntimeSimple(a, "sun.awt.image.ImagingLib");
+            initAtRuntimeSimple(a, "java.awt.GraphicsEnvironment");
+            initAtRuntimeSimple(a, "java.awt.dnd.DragSource");
+            initAtRuntimeSimple(a, "sun.print.CUPSPrinter");
 
             JNIRuntimeAccess.register(System.class);
             JNIRuntimeAccess.register(System.class.getDeclaredMethod("setProperty", String.class, String.class));
@@ -360,6 +363,22 @@ class JNIRegistrationFeature implements Feature {
             JNIRuntimeAccess.register(JPEGImageDecoder.class.getDeclaredMethod("sendPixels", byte[].class, int.class));
             JNIRuntimeAccess.register(JPEGImageDecoder.class.getDeclaredMethod("sendPixels", int[].class, int.class));
 
+            Class<?> clazz = getClass("java.awt.event.InputEvent");
+            initAtRuntime(a, clazz);
+            JNIRuntimeAccess.register(clazz.getDeclaredField("modifiers"));
+
+            clazz = getClass("java.awt.AWTEvent");
+            initAtRuntime(a, clazz);
+            JNIRuntimeAccess.register(clazz.getDeclaredField("bdata"));
+            JNIRuntimeAccess.register(clazz.getDeclaredField("consumed"));
+            JNIRuntimeAccess.register(clazz.getDeclaredField("id"));
+
+            clazz = getClass("java.awt.event.KeyEvent");
+            initAtRuntime(a, clazz);
+            JNIRuntimeAccess.register(clazz.getDeclaredField("keyCode"));
+            JNIRuntimeAccess.register(clazz.getDeclaredField("keyChar"));
+
+
             // Register primitive types: jdk/src/share/native/sun/java2d/loops/GraphicsPrimitiveMgr.c:581
             JNIRuntimeAccess.register(initAtRuntime(a, "sun.java2d.loops.Blit").getDeclaredConstructor(long.class, SurfaceType.class, CompositeType.class, SurfaceType.class));
             JNIRuntimeAccess.register(initAtRuntime(a, "sun.java2d.loops.BlitBg").getDeclaredConstructor(long.class, SurfaceType.class, CompositeType.class, SurfaceType.class));
@@ -419,10 +438,10 @@ class JNIRegistrationFeature implements Feature {
 
             registerChildClasses(a);
 
-            a.getHostVM().registerClassReachabilityListener((duringAnalysisAccess, clazz) -> {
+            a.getHostVM().registerClassReachabilityListener((duringAnalysisAccess, c) -> {
                 FeatureImpl.DuringAnalysisAccessImpl a2 = (FeatureImpl.DuringAnalysisAccessImpl) duringAnalysisAccess;
 
-                Class<?> superClass = clazz.getSuperclass();
+                Class<?> superClass = c.getSuperclass();
                 boolean isFullChild = false;
                 boolean isSimpleChild = false;
                 boolean isReflection = false;
@@ -437,7 +456,7 @@ class JNIRegistrationFeature implements Feature {
                     }
                     superClass = superClass.getSuperclass();
                 }
-                superClass = clazz;
+                superClass = c;
                 while (superClass != null) {
                     if (reflectionClasses.contains(superClass)) {
                         isReflection = true;
@@ -446,7 +465,7 @@ class JNIRegistrationFeature implements Feature {
                     superClass = superClass.getSuperclass();
                 }
                 if (isFullChild) {
-                    superClass = clazz;
+                    superClass = c;
                     while (superClass != null) {
                         if (runtimeClasses.contains(superClass)) {
                             break;
@@ -457,7 +476,7 @@ class JNIRegistrationFeature implements Feature {
                     }
                 }
                 if (isSimpleChild) {
-                    superClass = clazz;
+                    superClass = c;
                     while (superClass != null) {
                         if (runtimeClassesSimple.contains(superClass.getName())) {
                             break;
@@ -468,7 +487,7 @@ class JNIRegistrationFeature implements Feature {
                     }
                 }
                 if (isReflection) {
-                    superClass = clazz;
+                    superClass = c;
                     while (superClass != null) {
                         if (reflectionClasses.contains(superClass)) {
                             break;
@@ -1008,8 +1027,6 @@ class JNIRegistrationFeature implements Feature {
         initAtRuntime(access, "java.awt.event.ContainerEvent");
         initAtRuntime(access, "javax.swing.plaf.ColorUIResource");
         initAtRuntime(access, "javax.swing.plaf.InsetsUIResource");
-        initAtRuntime(access, "java.awt.event.InputEvent");
-        initAtRuntime(access, "java.awt.event.KeyEvent");
         initAtRuntime(access, "java.awt.event.MouseEvent");
         initAtRuntime(access, "sun.awt.dnd.SunDropTargetEvent");
         initAtRuntime(access, "java.awt.event.MouseWheelEvent");
@@ -1389,6 +1406,9 @@ class JNIRegistrationFeature implements Feature {
         initAtRuntime(access, "javax.swing.plaf.basic.BasicTextUI$BasicCaret");
         initAtRuntime(access, "javax.swing.plaf.basic.BasicTextUI$BasicCursor");
         initAtRuntimeSimple(access, "javax.swing.plaf.basic.BasicTextUI$TextTransferHandler$TextTransferable");
+        initAtRuntimeSimple(access, "sun.java2d.HeadlessGraphicsEnvironment");
+        initAtRuntimeSimple(access, "sun.java2d.SunGraphicsEnvironment");
+        initAtRuntimeSimple(access, "sun.awt.X11GraphicsEnvironment");
 
         registerReflection("sun.java2d.loops.DrawLine");
         registerReflection("sun.java2d.loops.FillRect");
