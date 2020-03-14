@@ -6,7 +6,7 @@
 
     <groupId>me.vektory79.plantuml</groupId>
     <artifactId>plantuml-graal</artifactId>
-    <version>1.2020.1</version>
+    <version>1.2020.2</version>
 
     <url>https://github.com/vektory79/plantuml-native-image</url>
 
@@ -31,7 +31,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
 
         <graal.version>20.0.0</graal.version>
-        <plantuml.version>1.2020.1</plantuml.version>
+        <plantuml.version>1.2020.2</plantuml.version>
     </properties>
 
     <dependencies>
@@ -101,8 +101,8 @@
                         -H:+TraceClassInitialization
 <!--                        -H:Log=registerResource-->
                         -cp ${project.build.directory}/plantuml.jar
-<!--                        -J-Xms5g-->
-<!--                        -J-Xmx5g-->
+                        -J-Xms5g
+                        -J-Xmx5g
                     </buildArgs>
                 </configuration>
             </plugin>
