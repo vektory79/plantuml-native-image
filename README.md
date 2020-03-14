@@ -58,4 +58,4 @@ To test the application run the following command:
 ./target/plantuml -Djava.awt.headless=true ./examples/example1.txt
 ```
 
-Currently application works in headless mode only. Desktop windows won't work due to an unexpected [error](https://github.com/oracle/graal/issues/1716) in the final executable.
+Currently application works in headless mode only. Desktop windows won't work due to an unexpected [error](https://github.com/oracle/graal/issues/2254) in the final executable.
