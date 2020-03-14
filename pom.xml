@@ -6,7 +6,7 @@
 
     <groupId>me.vektory79.plantuml</groupId>
     <artifactId>plantuml-graal</artifactId>
-    <version>1.2020.0-2</version>
+    <version>1.2020.1</version>
 
     <url>https://github.com/vektory79/plantuml-native-image</url>
 
@@ -30,8 +30,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
 
-        <graal.version>19.3.1</graal.version>
-        <plantuml.version>1.2020.0</plantuml.version>
+        <graal.version>20.0.0</graal.version>
+        <plantuml.version>1.2020.1</plantuml.version>
     </properties>
 
     <dependencies>
@@ -98,9 +98,11 @@
                         -H:+ReportExceptionStackTraces
 <!--                        -Djava.awt.headless=true-->
                         --language:js
-<!--                        -H:+TraceClassInitialization-->
+                        -H:+TraceClassInitialization
 <!--                        -H:Log=registerResource-->
                         -cp ${project.build.directory}/plantuml.jar
+<!--                        -J-Xms5g-->
+<!--                        -J-Xmx5g-->
                     </buildArgs>
                 </configuration>
             </plugin>
@@ -264,7 +266,7 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://liquidtelecom.dl.sourceforge.net/project/plantuml/1.2020.0/plantuml-jar-gplv2-${plantuml.version}.zip</url>
+                            <url>https://liquidtelecom.dl.sourceforge.net/project/plantuml/${plantuml.version}/plantuml-jar-gplv2-${plantuml.version}.zip</url>
                             <unpack>true</unpack>
                             <outputFileName>plantuml-jar-gplv2-${plantuml.version}.zip</outputFileName>
                             <outputDirectory>${project.build.directory}</outputDirectory>

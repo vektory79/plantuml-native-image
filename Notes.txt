@@ -12,3 +12,43 @@ JNI impl:
 remove:
     com/oracle/svm/core/jdk/Target_java_awt_Toolkit.class
 
+Clean:
+Allocated ~8.8 Gb
+[plantuml:27631]    classlist:   7,462.87 ms,  2.18 GB
+[plantuml:27631]        (cap):   1,263.10 ms,  2.18 GB
+[plantuml:27631]        setup:   2,728.88 ms,  2.18 GB
+[plantuml:27631]   (typeflow):  54,175.23 ms,  6.92 GB
+[plantuml:27631]    (objects):  30,871.35 ms,  6.92 GB
+[plantuml:27631]   (features):  10,885.79 ms,  6.92 GB
+[plantuml:27631]     analysis: 101,303.56 ms,  6.92 GB
+[plantuml:27631]     (clinit):   2,830.37 ms,  6.73 GB
+9415 method(s) included for runtime compilation
+[plantuml:27631]     universe:   6,716.29 ms,  6.73 GB
+[plantuml:27631]      (parse):  12,659.89 ms,  6.66 GB
+[plantuml:27631]     (inline):  10,453.89 ms,  6.64 GB
+[plantuml:27631]    (compile):  54,709.70 ms,  7.28 GB
+[plantuml:27631]      compile:  83,759.55 ms,  7.29 GB
+[plantuml:27631]        image:  11,502.69 ms,  7.24 GB
+[plantuml:27631]        write:   1,424.70 ms,  7.24 GB
+[plantuml:27631]      [total]: 216,694.41 ms,  7.24 GB
+
+
+-J-Xms5g -J-Xms5g:
+Allocated ~6 Gb
+[plantuml:25932]    classlist:  15,384.14 ms,  4.79 GB
+[plantuml:25932]        (cap):   1,973.95 ms,  4.79 GB
+[plantuml:25932]        setup:   3,716.09 ms,  4.79 GB
+[plantuml:25932]   (typeflow): 224,891.65 ms,  4.45 GB
+[plantuml:25932]    (objects):  68,129.60 ms,  4.45 GB
+[plantuml:25932]   (features):  21,315.61 ms,  4.45 GB
+[plantuml:25932]     analysis: 322,193.30 ms,  4.45 GB
+[plantuml:25932]     (clinit):   9,844.03 ms,  4.45 GB
+9415 method(s) included for runtime compilation
+[plantuml:25932]     universe:  38,944.21 ms,  4.45 GB
+[plantuml:25932]      (parse):  11,619.07 ms,  4.44 GB
+[plantuml:25932]     (inline):  12,809.92 ms,  4.60 GB
+[plantuml:25932]    (compile):  57,645.29 ms,  4.70 GB
+[plantuml:25932]      compile:  88,024.69 ms,  4.70 GB
+[plantuml:25932]        image:  13,937.66 ms,  4.54 GB
+[plantuml:25932]        write:   1,750.45 ms,  4.54 GB
+[plantuml:25932]      [total]: 488,216.98 ms,  4.54 GB

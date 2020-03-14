@@ -39,7 +39,7 @@ import java.nio.file.Paths;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException {
-        System.out.println("DISPLAY=" + System.getenv("DISPLAY"));
+//        System.out.println("DISPLAY=" + System.getenv("DISPLAY"));
 //        System.setProperty("java.awt.headless", "true");
 
         autoLoadLibs();
