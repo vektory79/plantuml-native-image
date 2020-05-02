@@ -101,7 +101,6 @@
                         -H:+TraceClassInitialization
 <!--                        -H:Log=registerResource-->
                         -cp ${project.build.directory}/plantuml.jar
-                        -J-Xms5g
                         -J-Xmx5g
                     </buildArgs>
                 </configuration>
@@ -129,7 +128,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <property name="resources.path" value="${java.home}/lib/resources.jar"/>
                                 <property name="target.path" value="${project.build.directory}/classes"/>
                                 <unzip src="${resources.path}"
@@ -138,7 +137,7 @@
                                         <include name="com/sun/org/apache/xml/internal/serializer/*.properties"/>
                                     </patternset>
                                 </unzip>
-                            </tasks>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>
