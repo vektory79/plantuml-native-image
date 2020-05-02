@@ -102,7 +102,7 @@
                         -H:+TraceClassInitialization
 <!--                        -H:Log=registerResource-->
                         -cp ${project.build.directory}/plantuml.jar
-                        -J-Xmx5g
+                        -J-Xmx6g
                     </buildArgs>
                 </configuration>
             </plugin>

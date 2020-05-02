@@ -3,7 +3,8 @@ RUN curl -o - -s http://www.nic.funet.fi/pub/mirrors/apache.org/maven/maven-3/3.
 RUN gu install native-image
 COPY . /build
 WORKDIR /build
-RUN /usr/local/apache-maven-3.6.3/bin/mvn
+ENV MAVEN_OPTS="-Djansi.force=true"
+RUN /usr/local/apache-maven-3.6.3/bin/mvn --no-transfer-progress -Dstyle.color=always
 
 FROM ubuntu:20.04
 RUN apt-get -qq update \
