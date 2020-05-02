@@ -6,7 +6,7 @@
 
     <groupId>me.vektory79.plantuml</groupId>
     <artifactId>plantuml-graal</artifactId>
-    <version>1.2020.2</version>
+    <version>${revision}${changelist}</version>
 
     <url>https://github.com/vektory79/plantuml-native-image</url>
 
@@ -31,7 +31,8 @@
         <maven.compiler.source>1.8</maven.compiler.source>
 
         <graal.version>20.0.0</graal.version>
-        <plantuml.version>1.2020.8</plantuml.version>
+        <revision>1.2020.8</revision>
+        <changelist/>
     </properties>
 
     <dependencies>
@@ -69,7 +70,7 @@
         <dependency>
             <groupId>net.sourceforge.plantuml</groupId>
             <artifactId>plantuml</artifactId>
-            <version>${plantuml.version}</version>
+            <version>${revision}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -142,32 +143,6 @@
                     </execution>
                 </executions>
             </plugin>
-<!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.1.1</version>
-                <executions>
-                    <execution>
-                        <id>copy</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>net.sourceforge.plantuml</groupId>
-                                    <artifactId>plantuml</artifactId>
-                                    <version>${plantuml.version}</version>
-                                </artifactItem>
-                            </artifactItems>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
--->
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
@@ -265,9 +240,9 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://liquidtelecom.dl.sourceforge.net/project/plantuml/${plantuml.version}/plantuml-jar-gplv2-${plantuml.version}.zip</url>
+                            <url>https://liquidtelecom.dl.sourceforge.net/project/plantuml/${revision}/plantuml-jar-gplv2-${revision}.zip</url>
                             <unpack>true</unpack>
-                            <outputFileName>plantuml-jar-gplv2-${plantuml.version}.zip</outputFileName>
+                            <outputFileName>plantuml-jar-gplv2-${revision}.zip</outputFileName>
                             <outputDirectory>${project.build.directory}</outputDirectory>
                         </configuration>
                     </execution>
