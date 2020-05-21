@@ -1,4 +1,4 @@
-FROM oracle/graalvm-ce:20.0.0-java8 AS BUILD
+FROM oracle/graalvm-ce:20.1.0-java8 AS BUILD
 RUN curl -o - -s http://www.nic.funet.fi/pub/mirrors/apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz | tar xz -C /usr/local
 RUN gu install native-image
 COPY . /build
