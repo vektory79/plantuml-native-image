@@ -1,0 +1,34 @@
+version: 2
+updates:
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "02:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: net.sourceforge.plantuml:plantuml
+    versions:
+    - 1.2021.0
+    - 1.2021.1
+    - 1.2021.2
+    - 1.2021.3
+    - 1.2021.4
+  - dependency-name: com.googlecode.maven-download-plugin:download-maven-plugin
+    versions:
+    - 1.6.1
+    - 1.6.2
+  - dependency-name: org.graalvm.nativeimage:native-image-maven-plugin
+    versions:
+    - 21.0.0
+    - 21.0.0.2
+  - dependency-name: org.graalvm.nativeimage:svm
+    versions:
+    - 21.0.0
+    - 21.0.0.2
+- package-ecosystem: docker
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "02:00"
+  open-pull-requests-limit: 10
